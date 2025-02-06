@@ -5,7 +5,7 @@ import kafka.errors as Errors
 from kafka.protocol.types import Int32
 from kafka.scram import ScramClient
 
-log = logging.getLogger()
+log = logging.getLogger(__name__)
 
 
 def validate_config(conn):
