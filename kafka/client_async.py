@@ -637,7 +637,12 @@ class KafkaClient:
 
         for key, events in ready:
             if key.fileobj.fileno() < 0:
-                self._selector.unregister(key.fileobj)
+                try:
+                    self._selector.unregister(key.fileobj)
+                except KeyError:
+                    pass
+                # Skip to next key after handling closed fd
+                continue
 
             if key.fileobj is self._wake_r:
                 self._clear_wake_fd()
