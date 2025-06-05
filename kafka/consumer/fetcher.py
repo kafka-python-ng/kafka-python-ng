@@ -668,7 +668,7 @@ class Fetcher:
             node_id = self._client.cluster.leader_for_partition(partition)
 
             # advance position for any deleted compacted messages if required
-            if self._subscriptions.assignment[partition].last_offset_from_message_batch:
+            if self._subscriptions.assignment[partition].last_offset_from_message_batch is not None:
                 next_offset_from_batch_header = self._subscriptions.assignment[partition].last_offset_from_message_batch + 1
                 if next_offset_from_batch_header > self._subscriptions.assignment[partition].position:
                     log.debug(
